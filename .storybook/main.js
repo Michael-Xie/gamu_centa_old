@@ -1,5 +1,6 @@
 module.exports = {
   stories: ['../**/*.story.mdx', '../**/*.story.@(js|jsx|ts|tsx)'],
+
   addons: [
     'storybook-dark-mode',
     {
@@ -7,5 +8,13 @@ module.exports = {
       options: { optimizationLevel: 2 },
     },
   ],
-  framework: '@storybook/react',
+
+  framework: {
+    name: '@storybook/nextjs',
+    options: {}
+  },
+
+  docs: {
+    autodocs: true
+  }
 };
