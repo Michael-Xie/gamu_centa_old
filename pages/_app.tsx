@@ -1,33 +1,18 @@
-import { useState } from 'react';
-import NextApp, { AppProps, AppContext } from 'next/app';
-import { getCookie, setCookie } from 'cookies-next';
-import Head from 'next/head';
-import { MantineProvider } from '@mantine/core';
-import { Notifications } from '@mantine/notifications';
+// Import styles of packages that you've installed.
+// All packages except `@mantine/hooks` require styles imports
+import '@mantine/core/styles.css';
 
-export default function App(props: AppProps) {
-  const { Component, pageProps } = props;
+import type { AppProps } from 'next/app';
+import { createTheme, MantineProvider } from '@mantine/core';
 
+const theme = createTheme({
+  /** Put your mantine theme override here */
+});
+
+export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <Head>
-        <title>Gamu Centa</title>
-        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-        <link rel="shortcut icon" href="/favicon.svg" />
-      </Head>
-
-      <MantineProvider>
-        <Component {...pageProps} />
-        <Notifications />
-      </MantineProvider>
-    </>
+    <MantineProvider theme={theme}>
+      <Component {...pageProps} />
+    </MantineProvider>
   );
 }
-
-App.getInitialProps = async (appContext: AppContext) => {
-  const appProps = await NextApp.getInitialProps(appContext);
-  return {
-    ...appProps,
-    colorScheme: getCookie('mantine-color-scheme', appContext.ctx) || 'dark',
-  };
-};
